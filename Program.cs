@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace DIO.Bank
@@ -21,16 +22,16 @@ namespace DIO.Bank
 						InserirConta();
 						break;
 					case "3":
-					//	Transferir();
+						Transferir();
 						break;
 					case "4":
-					//	Sacar();
+						Sacar();
 						break;
 					case "5":
-					//	Depositar();
+						Depositar();
 						break;
-                    case "C":
-					//	Console.Clear();
+                     case "C":
+						Console.Clear();
 						break;
 
 					default:
@@ -42,6 +43,42 @@ namespace DIO.Bank
 			
 			Console.WriteLine("Obrigado por utilizar nossos serviços.");
 			Console.ReadLine();
+		}
+
+        private static void Transferir()
+		{
+			Console.Write("Digite o número da conta de origem: ");
+			int indiceContaOrigem = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o número da conta de destino: ");
+			int indiceContaDestino = int.Parse(Console.ReadLine());
+
+			Console.Write("Digite o valor a ser transferido: ");
+			double valorTransferencia = double.Parse(Console.ReadLine());
+
+            listContas[indiceContaOrigem].Transferir(valorTransferencia, listContas[indiceContaDestino]);
+		}
+
+        private static void Sacar()
+		{
+			Console.Write("Digite o número da conta: ");
+			int indiceConta = int.Parse(Console.ReadLine());
+
+			Console.Write("Digite o valor a ser sacado: ");
+			double valorSaque = double.Parse(Console.ReadLine());
+
+            listContas[indiceConta].Sacar(valorSaque);
+		}
+
+        private static void Depositar()
+		{
+			Console.Write("Digite o número da conta: ");
+			int indiceConta = int.Parse(Console.ReadLine());
+
+			Console.Write("Digite o valor a ser depositado: ");
+			double valorDeposito = double.Parse(Console.ReadLine());
+
+            listContas[indiceConta].Depositar(valorDeposito);
 		}
 
         private static void InserirConta() {
@@ -69,19 +106,23 @@ namespace DIO.Bank
 
         private static void ListarContas()
 		{
-			Console.WriteLine("Listar contas");
+			Console.WriteLine("Listar contas:");
 
 			if (listContas.Count == 0)
 			{
+				
 				Console.WriteLine("Nenhuma conta cadastrada.");
 				return;
+				
 			}
 
 			for (int i = 0; i < listContas.Count; i++)
 			{
 				Conta conta = listContas[i];
+				Console.WriteLine("-------------------------------------------------------------------------");
 				Console.Write("#{0} - ", i);
 				Console.WriteLine(conta);
+				Console.WriteLine("-------------------------------------------------------------------------");
 			}
 		}
            
